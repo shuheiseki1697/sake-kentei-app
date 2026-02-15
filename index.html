@@ -7,11 +7,48 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- 背景 -->
+  <div class="bg-photo"></div>
+  <div class="bg-overlay"></div>
+
   <div class="container">
     <!-- スタート画面 -->
     <div id="start-screen" class="screen">
-      <h1>🍶 日本酒検定2級<br>クイズ</h1>
-      <p class="subtitle">カテゴリを選んでスタート！</p>
+      <div class="hero">
+        <div class="label-frame">
+          <div class="label-inner">
+            <span class="label-top">日本酒検定</span>
+            <span class="label-grade">弐級</span>
+            <span class="label-sub">NIHONSHU KENTEI</span>
+          </div>
+        </div>
+        <p class="hero-tagline">酒を知り、酒を愉しむ</p>
+      </div>
+
+      <nav class="main-nav">
+        <a href="#" id="start-quiz-btn" class="nav-card">
+          <span class="nav-icon">&#x1F3AF;</span>
+          <div class="nav-text">
+            <span class="nav-title">クイズに挑戦</span>
+            <span class="nav-desc">4択問題で実力を試す</span>
+          </div>
+        </a>
+        <a href="textbook.html" class="nav-card">
+          <span class="nav-icon">&#x1F4D6;</span>
+          <div class="nav-text">
+            <span class="nav-title">教科書で学ぶ</span>
+            <span class="nav-desc">体系的に知識を身につける</span>
+          </div>
+        </a>
+      </nav>
+    </div>
+
+    <!-- カテゴリ選択画面 -->
+    <div id="category-screen" class="screen hidden">
+      <div class="screen-header">
+        <button id="back-to-home" class="back-btn">&larr; 戻る</button>
+        <h2 class="screen-title">カテゴリ選択</h2>
+      </div>
       <div id="category-buttons" class="category-buttons"></div>
     </div>
 
@@ -21,26 +58,33 @@
         <span id="category-label" class="category-label"></span>
         <span id="progress"></span>
       </div>
+      <div class="progress-bar-track">
+        <div id="progress-bar" class="progress-bar-fill"></div>
+      </div>
       <div id="question-box" class="question-box">
         <p id="question-text"></p>
       </div>
       <div id="choices" class="choices"></div>
       <div id="explanation-box" class="explanation-box hidden">
         <p id="explanation-text"></p>
+        <a id="textbook-link" href="#" class="textbook-link" target="_blank">&#x1F4D6; この分野を教科書で学ぶ</a>
         <button id="next-btn" class="btn next-btn">次の問題へ</button>
       </div>
     </div>
 
     <!-- 結果画面 -->
     <div id="result-screen" class="screen hidden">
-      <h2>結果発表</h2>
-      <div id="score-circle" class="score-circle">
-        <span id="score-text"></span>
+      <div class="result-label-frame">
+        <span class="result-label-top">成績発表</span>
+        <div id="score-display" class="score-display">
+          <span id="score-text" class="score-number"></span>
+        </div>
+        <p id="result-detail"></p>
       </div>
       <p id="result-message"></p>
       <div class="result-buttons">
         <button id="retry-btn" class="btn">もう一度挑戦</button>
-        <button id="home-btn" class="btn btn-outline">カテゴリ選択に戻る</button>
+        <button id="home-btn" class="btn btn-outline">トップに戻る</button>
       </div>
     </div>
   </div>

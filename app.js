@@ -6,20 +6,29 @@ let currentCategory = "";
 
 // ===== DOM要素 =====
 const startScreen = document.getElementById("start-screen");
+const categoryScreen = document.getElementById("category-screen");
 const quizScreen = document.getElementById("quiz-screen");
 const resultScreen = document.getElementById("result-screen");
 const categoryButtons = document.getElementById("category-buttons");
 const categoryLabel = document.getElementById("category-label");
 const progress = document.getElementById("progress");
+const progressBar = document.getElementById("progress-bar");
 const questionText = document.getElementById("question-text");
 const choicesContainer = document.getElementById("choices");
 const explanationBox = document.getElementById("explanation-box");
 const explanationText = document.getElementById("explanation-text");
+const textbookLink = document.getElementById("textbook-link");
 const nextBtn = document.getElementById("next-btn");
 const scoreText = document.getElementById("score-text");
+const resultDetail = document.getElementById("result-detail");
 const resultMessage = document.getElementById("result-message");
 const retryBtn = document.getElementById("retry-btn");
 const homeBtn = document.getElementById("home-btn");
+const startQuizBtn = document.getElementById("start-quiz-btn");
+const backToHome = document.getElementById("back-to-home");
+
+// ===== 全画面リスト =====
+const allScreens = [startScreen, categoryScreen, quizScreen, resultScreen];
 
 // ===== 初期化 =====
 function init() {
@@ -27,27 +36,27 @@ function init() {
   nextBtn.addEventListener("click", nextQuestion);
   retryBtn.addEventListener("click", retryQuiz);
   homeBtn.addEventListener("click", goHome);
+  startQuizBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    showScreen(categoryScreen);
+  });
+  backToHome.addEventListener("click", goHome);
 }
 
 // ===== カテゴリボタンを生成 =====
 function renderCategoryButtons() {
-  // カテゴリごとに問題数を集計
   const categories = {};
   questions.forEach((q) => {
-    if (!categories[q.category]) {
-      categories[q.category] = 0;
-    }
+    if (!categories[q.category]) categories[q.category] = 0;
     categories[q.category]++;
   });
 
-  // 「全問チャレンジ」ボタン
   const allBtn = document.createElement("button");
   allBtn.className = "category-btn";
   allBtn.innerHTML = `全問チャレンジ <span class="count">${questions.length}問</span>`;
   allBtn.addEventListener("click", () => startQuiz("all"));
   categoryButtons.appendChild(allBtn);
 
-  // カテゴリ別ボタン
   Object.keys(categories).forEach((cat) => {
     const btn = document.createElement("button");
     btn.className = "category-btn";
@@ -63,16 +72,12 @@ function startQuiz(category) {
   currentIndex = 0;
   score = 0;
 
-  // 問題をフィルタリング＆シャッフル
   if (category === "all") {
     currentQuestions = shuffle([...questions]);
   } else {
-    currentQuestions = shuffle(
-      questions.filter((q) => q.category === category)
-    );
+    currentQuestions = shuffle(questions.filter((q) => q.category === category));
   }
 
-  // 画面切り替え
   showScreen(quizScreen);
   categoryLabel.textContent = category === "all" ? "全問" : category;
   showQuestion();
@@ -82,10 +87,10 @@ function startQuiz(category) {
 function showQuestion() {
   const q = currentQuestions[currentIndex];
   progress.textContent = `${currentIndex + 1} / ${currentQuestions.length}`;
+  progressBar.style.width = `${((currentIndex + 1) / currentQuestions.length) * 100}%`;
   questionText.textContent = q.question;
   explanationBox.classList.add("hidden");
 
-  // 選択肢を生成
   choicesContainer.innerHTML = "";
   q.choices.forEach((choice, i) => {
     const btn = document.createElement("button");
@@ -101,10 +106,8 @@ function selectAnswer(selectedIndex, selectedBtn) {
   const q = currentQuestions[currentIndex];
   const buttons = choicesContainer.querySelectorAll(".choice-btn");
 
-  // 全ボタンを無効化
   buttons.forEach((btn) => btn.classList.add("disabled"));
 
-  // 正解・不正解の表示
   if (selectedIndex === q.answer) {
     selectedBtn.classList.add("correct");
     score++;
@@ -113,11 +116,18 @@ function selectAnswer(selectedIndex, selectedBtn) {
     buttons[q.answer].classList.add("correct");
   }
 
-  // 解説を表示
   explanationText.textContent = q.explanation;
+
+  // 教科書リンクを設定
+  if (q.textbookSection) {
+    textbookLink.href = `textbook.html#${q.textbookSection}`;
+    textbookLink.style.display = "block";
+  } else {
+    textbookLink.style.display = "none";
+  }
+
   explanationBox.classList.remove("hidden");
 
-  // 最後の問題なら「次へ」ボタンのテキストを変更
   if (currentIndex === currentQuestions.length - 1) {
     nextBtn.textContent = "結果を見る";
   } else {
@@ -141,18 +151,18 @@ function showResult() {
 
   const percentage = Math.round((score / currentQuestions.length) * 100);
   scoreText.textContent = `${percentage}%`;
+  resultDetail.textContent = `${currentQuestions.length}問中 ${score}問正解`;
 
   let message = "";
   if (percentage === 100) {
-    message = "満点！日本酒マスターです！🎉";
+    message = "満点！日本酒マスター！";
   } else if (percentage >= 80) {
-    message = "素晴らしい！合格レベルです！";
+    message = "素晴らしい！合格レベル！";
   } else if (percentage >= 60) {
-    message = "もう少し！復習して再チャレンジ！";
+    message = "もう少し！復習して再挑戦！";
   } else {
-    message = "がんばりましょう！繰り返し学習が大切です。";
+    message = "精進あるのみ！";
   }
-  message += `\n\n${currentQuestions.length}問中 ${score}問正解`;
   resultMessage.textContent = message;
 }
 
@@ -168,10 +178,9 @@ function goHome() {
 
 // ===== 画面切り替え =====
 function showScreen(screen) {
-  startScreen.classList.add("hidden");
-  quizScreen.classList.add("hidden");
-  resultScreen.classList.add("hidden");
+  allScreens.forEach((s) => s.classList.add("hidden"));
   screen.classList.remove("hidden");
+  window.scrollTo(0, 0);
 }
 
 // ===== 配列をシャッフル =====
