@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>日本酒検定2級 クイズ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- スタート画面 -->
+    <div id="start-screen" class="screen">
+      <h1>🍶 日本酒検定2級<br>クイズ</h1>
+      <p class="subtitle">カテゴリを選んでスタート！</p>
+      <div id="category-buttons" class="category-buttons"></div>
+    </div>
+
+    <!-- クイズ画面 -->
+    <div id="quiz-screen" class="screen hidden">
+      <div class="quiz-header">
+        <span id="category-label" class="category-label"></span>
+        <span id="progress"></span>
+      </div>
+      <div id="question-box" class="question-box">
+        <p id="question-text"></p>
+      </div>
+      <div id="choices" class="choices"></div>
+      <div id="explanation-box" class="explanation-box hidden">
+        <p id="explanation-text"></p>
+        <button id="next-btn" class="btn next-btn">次の問題へ</button>
+      </div>
+    </div>
+
+    <!-- 結果画面 -->
+    <div id="result-screen" class="screen hidden">
+      <h2>結果発表</h2>
+      <div id="score-circle" class="score-circle">
+        <span id="score-text"></span>
+      </div>
+      <p id="result-message"></p>
+      <div class="result-buttons">
+        <button id="retry-btn" class="btn">もう一度挑戦</button>
+        <button id="home-btn" class="btn btn-outline">カテゴリ選択に戻る</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
