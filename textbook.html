@@ -8,400 +8,814 @@
   <link rel="stylesheet" href="textbook.css">
 </head>
 <body>
+  <div class="bg-photo"></div>
   <div class="bg-overlay"></div>
 
-  <div class="tb-container">
-    <!-- ヘッダー -->
-    <header class="tb-header">
-      <a href="index.html" class="back-btn">&larr; トップに戻る</a>
-      <h1 class="tb-title">日本酒検定2級 教科書</h1>
-    </header>
+  <!-- Reading Progress Bar -->
+  <div class="reading-progress" id="reading-progress">
+    <div class="reading-progress-fill" id="reading-progress-fill"></div>
+  </div>
 
-    <!-- 目次 -->
-    <nav class="tb-toc">
-      <h2 class="tb-toc-title">目次</h2>
-      <ol class="tb-toc-list">
-        <li><a href="#chapter-history">第一章　日本酒の歴史</a></li>
-        <li><a href="#chapter-ingredients">第二章　原料 ー 米・水・麹</a></li>
-        <li><a href="#chapter-brewing">第三章　製造工程</a></li>
-        <li><a href="#chapter-taste">第四章　味わい・香り</a></li>
-        <li><a href="#chapter-trivia">第五章　分類・楽しみ方</a></li>
-      </ol>
-    </nav>
+  <!-- Sticky Header -->
+  <header class="tb-sticky-header" id="tb-sticky-header">
+    <div class="tb-sticky-inner">
+      <a href="index.html" class="icon-btn tb-back-btn">&larr;</a>
+      <div class="tb-sticky-brand">
+        <span class="tb-sticky-title">教科書</span>
+        <span class="tb-sticky-section" id="current-section-label"></span>
+      </div>
+      <button class="icon-btn tb-toc-toggle" id="toc-toggle" aria-label="目次を開く">&#9776;</button>
+    </div>
+  </header>
+
+  <!-- Side TOC (Desktop) / Drawer (Mobile) -->
+  <div class="tb-toc-overlay" id="toc-overlay"></div>
+  <nav class="tb-toc-nav" id="toc-nav">
+    <div class="tb-toc-drawer-header">
+      <h3>目次</h3>
+      <button class="icon-btn tb-toc-close" id="toc-close">&times;</button>
+    </div>
+    <ul class="tb-toc-list" id="toc-list">
+      <li>
+        <a href="#chapter-history" class="tb-toc-chapter-link" data-chapter="chapter-history">第一章　日本酒の歴史</a>
+        <ul class="tb-toc-sub">
+          <li><a href="#history-ancient" data-section="history-ancient">古代 ー 酒造りの起源</a></li>
+          <li><a href="#history-medieval" data-section="history-medieval">中世 ー 技術の飛躍</a></li>
+          <li><a href="#history-edo" data-section="history-edo">江戸時代 ー 灘と下り酒</a></li>
+          <li><a href="#history-modern" data-section="history-modern">近代 ー 科学技術の導入</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#chapter-ingredients" class="tb-toc-chapter-link" data-chapter="chapter-ingredients">第二章　原料</a>
+        <ul class="tb-toc-sub">
+          <li><a href="#ingredients-rice" data-section="ingredients-rice">酒造好適米</a></li>
+          <li><a href="#ingredients-polishing" data-section="ingredients-polishing">精米と精米歩合</a></li>
+          <li><a href="#ingredients-water" data-section="ingredients-water">仕込み水</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#chapter-brewing" class="tb-toc-chapter-link" data-chapter="chapter-brewing">第三章　製造工程</a>
+        <ul class="tb-toc-sub">
+          <li><a href="#brewing-koji" data-section="brewing-koji">麹造り</a></li>
+          <li><a href="#brewing-moto" data-section="brewing-moto">酒母造り</a></li>
+          <li><a href="#brewing-moromi" data-section="brewing-moromi">三段仕込み</a></li>
+          <li><a href="#brewing-fermentation" data-section="brewing-fermentation">並行複発酵</a></li>
+          <li><a href="#brewing-pressing" data-section="brewing-pressing">上槽・火入れ・貯蔵</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#chapter-taste" class="tb-toc-chapter-link" data-chapter="chapter-taste">第四章　味わい・香り</a>
+        <ul class="tb-toc-sub">
+          <li><a href="#taste-indicators" data-section="taste-indicators">日本酒度と酸度</a></li>
+          <li><a href="#taste-aroma" data-section="taste-aroma">日本酒の香り</a></li>
+          <li><a href="#taste-4types" data-section="taste-4types">4タイプ分類</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#chapter-trivia" class="tb-toc-chapter-link" data-chapter="chapter-trivia">第五章　分類・楽しみ方</a>
+        <ul class="tb-toc-sub">
+          <li><a href="#trivia-classification" data-section="trivia-classification">特定名称酒</a></li>
+          <li><a href="#trivia-seasonal" data-section="trivia-seasonal">季節の酒</a></li>
+          <li><a href="#trivia-serving" data-section="trivia-serving">燗酒の温度帯</a></li>
+        </ul>
+      </li>
+    </ul>
+    <a href="index.html" class="tb-toc-quiz-cta">&#x1F3AF; クイズに挑戦する</a>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tb-container" id="tb-main">
+
+    <!-- Hero -->
+    <div class="tb-hero">
+      <span class="tb-hero-kanji">学</span>
+      <div>
+        <h1 class="tb-hero-title">日本酒検定2級 教科書</h1>
+        <p class="tb-hero-sub">全5章 ー 体系的に学ぶ日本酒の知識</p>
+      </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="tb-quick-stats">
+      <div class="tb-quick-stat">
+        <span class="tb-quick-stat-value">5</span>
+        <span class="tb-quick-stat-label">章</span>
+      </div>
+      <div class="tb-quick-stat">
+        <span class="tb-quick-stat-value">15</span>
+        <span class="tb-quick-stat-label">セクション</span>
+      </div>
+      <div class="tb-quick-stat">
+        <span class="tb-quick-stat-value">25</span>
+        <span class="tb-quick-stat-label">問題と連携</span>
+      </div>
+    </div>
 
     <!-- ===== 第一章：歴史 ===== -->
     <section id="chapter-history" class="tb-chapter">
       <div class="chapter-header">
-        <span class="chapter-number">第一章</span>
+        <span class="chapter-number">CHAPTER 01</span>
         <h2 class="chapter-title">日本酒の歴史</h2>
+        <div class="chapter-divider"></div>
       </div>
 
       <article id="history-ancient" class="tb-section">
-        <h3>古代 ー 酒造りの起源</h3>
-        <p>日本における酒造りの歴史は非常に古く、稲作の伝来とともに始まったとされています。</p>
-        <div class="tb-point">
-          <strong>播磨国風土記</strong>（奈良時代に編纂）には、「庭田の稲についたカビから御神酒を醸した」という記述があり、<strong>麹を用いた酒造りの最古の記録</strong>とされています。
+        <div class="tb-section-header" data-toggle="history-ancient-body">
+          <h3>古代 ー 酒造りの起源</h3>
+          <span class="tb-section-toggle">&#x25BC;</span>
         </div>
-        <p>古事記や日本書紀にも酒に関する記述はありますが、麹を使った醸造法を具体的に記した最古の文献は播磨国風土記です。</p>
-        <p>古代の酒は「口噛み酒」（穀物を口で噛んで唾液の酵素で糖化し発酵させるもの）から始まり、やがて麹カビを利用した醸造法へと発展しました。</p>
+        <div class="tb-section-body" id="history-ancient-body">
+          <p>日本における酒造りの歴史は非常に古く、稲作の伝来とともに始まったとされています。</p>
+          <div class="tb-point">
+            <strong>播磨国風土記</strong>（奈良時代に編纂）には、「庭田の稲についたカビから御神酒を醸した」という記述があり、<strong>麹を用いた酒造りの最古の記録</strong>とされています。
+          </div>
+          <p>古事記や日本書紀にも酒に関する記述はありますが、麹を使った醸造法を具体的に記した最古の文献は播磨国風土記です。</p>
+          <p>古代の酒は「口噛み酒」（穀物を口で噛んで唾液の酵素で糖化し発酵させるもの）から始まり、やがて麹カビを利用した醸造法へと発展しました。</p>
+          <div class="tb-quiz-link">
+            <a href="index.html" class="tb-quiz-chip" data-section="history-ancient">&#x1F3AF; この範囲のクイズに挑戦</a>
+          </div>
+        </div>
       </article>
 
       <article id="history-medieval" class="tb-section">
-        <h3>中世 ー 技術の飛躍</h3>
-        <p>平安〜室町時代にかけて、酒造技術は大きく発展しました。</p>
-        <div class="tb-point">
-          <strong>室町時代</strong>に、麹米・掛米ともに精白米を用いる<strong>「諸白（もろはく）造り」</strong>が確立。それまでの片白（かたはく：麹米のみ精白）に比べ、酒質が大幅に向上しました。
+        <div class="tb-section-header" data-toggle="history-medieval-body">
+          <h3>中世 ー 技術の飛躍</h3>
+          <span class="tb-section-toggle">&#x25BC;</span>
         </div>
-        <p>この時代、奈良の寺院（特に正暦寺など）が酒造りの中心となり、「僧坊酒」と呼ばれる高品質な酒が造られていました。火入れ（加熱殺菌）の技術もこの頃に生まれたとされ、パスツールが殺菌法を発見する300年以上も前のことです。</p>
+        <div class="tb-section-body" id="history-medieval-body">
+          <p>平安〜室町時代にかけて、酒造技術は大きく発展しました。</p>
+          <div class="tb-point">
+            <strong>室町時代</strong>に、麹米・掛米ともに精白米を用いる<strong>「諸白（もろはく）造り」</strong>が確立。それまでの片白（かたはく：麹米のみ精白）に比べ、酒質が大幅に向上しました。
+          </div>
+          <p>この時代、奈良の寺院（特に正暦寺など）が酒造りの中心となり、「僧坊酒」と呼ばれる高品質な酒が造られていました。火入れ（加熱殺菌）の技術もこの頃に生まれたとされ、パスツールが殺菌法を発見する300年以上も前のことです。</p>
+          <div class="tb-quiz-link">
+            <a href="index.html" class="tb-quiz-chip" data-section="history-medieval">&#x1F3AF; この範囲のクイズに挑戦</a>
+          </div>
+        </div>
       </article>
 
       <article id="history-edo" class="tb-section">
-        <h3>江戸時代 ー 灘と「下り酒」</h3>
-        <p>江戸時代は日本酒文化の黄金期です。</p>
-        <div class="tb-point">
-          <strong>灘（兵庫県）</strong>の酒は「宮水」を使った辛口の酒として江戸で大人気となりました。上方（関西）から江戸へ送られる酒は<strong>「下り酒（くだりざけ）」</strong>と呼ばれました。
+        <div class="tb-section-header" data-toggle="history-edo-body">
+          <h3>江戸時代 ー 灘と「下り酒」</h3>
+          <span class="tb-section-toggle">&#x25BC;</span>
         </div>
-        <p>逆に、品質が劣り江戸まで送られない酒は「下らない酒」と呼ばれ、これが「くだらない」という言葉の語源の一つとも言われています。</p>
-        <h4>「灘の生一本」とは</h4>
-        <p><strong>「生一本（きいっぽん）」</strong>とは、単一の製造場で醸造した純米酒のみに表示が認められている用語です。「灘の生一本」は灘五郷の単一蔵で造られた純米酒を指し、品質の高さを表す言葉として広まりました。</p>
+        <div class="tb-section-body" id="history-edo-body">
+          <p>江戸時代は日本酒文化の黄金期です。</p>
+          <div class="tb-point">
+            <strong>灘（兵庫県）</strong>の酒は「宮水」を使った辛口の酒として江戸で大人気となりました。上方（関西）から江戸へ送られる酒は<strong>「下り酒（くだりざけ）」</strong>と呼ばれました。
+          </div>
+          <p>逆に、品質が劣り江戸まで送られない酒は「下らない酒」と呼ばれ、これが「くだらない」という言葉の語源の一つとも言われています。</p>
+          <h4>「灘の生一本」とは</h4>
+          <p><strong>「生一本（きいっぽん）」</strong>とは、単一の製造場で醸造した純米酒のみに表示が認められている用語です。「灘の生一本」は灘五郷の単一蔵で造られた純米酒を指し、品質の高さを表す言葉として広まりました。</p>
+          <div class="tb-quiz-link">
+            <a href="index.html" class="tb-quiz-chip" data-section="history-edo">&#x1F3AF; この範囲のクイズに挑戦</a>
+          </div>
+        </div>
       </article>
 
       <article id="history-modern" class="tb-section">
-        <h3>近代 ー 科学技術の導入</h3>
-        <p>明治時代以降、西洋の科学技術が酒造りに導入されました。</p>
-        <div class="tb-point">
-          <strong>明治42年（1909年）</strong>、江田鎌治郎が<strong>速醸酛（そくじょうもと）</strong>を開発。乳酸を直接添加することで、従来の生酛造りに比べ安全かつ短期間（約2週間）で酒母を造れるようになりました。
+        <div class="tb-section-header" data-toggle="history-modern-body">
+          <h3>近代 ー 科学技術の導入</h3>
+          <span class="tb-section-toggle">&#x25BC;</span>
         </div>
-        <p>現在、日本酒の約90%は速醸酛で造られています。生酛や山廃は手間がかかりますが、独特の複雑な味わいが評価され、近年再び注目されています。</p>
+        <div class="tb-section-body" id="history-modern-body">
+          <p>明治時代以降、西洋の科学技術が酒造りに導入されました。</p>
+          <div class="tb-point">
+            <strong>明治42年（1909年）</strong>、江田鎌治郎が<strong>速醸酛（そくじょうもと）</strong>を開発。乳酸を直接添加することで、従来の生酛造りに比べ安全かつ短期間（約2週間）で酒母を造れるようになりました。
+          </div>
+          <p>現在、日本酒の約90%は速醸酛で造られています。生酛や山廃は手間がかかりますが、独特の複雑な味わいが評価され、近年再び注目されています。</p>
+          <div class="tb-quiz-link">
+            <a href="index.html" class="tb-quiz-chip" data-section="history-modern">&#x1F3AF; この範囲のクイズに挑戦</a>
+          </div>
+        </div>
       </article>
     </section>
 
     <!-- ===== 第二章：原料 ===== -->
     <section id="chapter-ingredients" class="tb-chapter">
       <div class="chapter-header">
-        <span class="chapter-number">第二章</span>
+        <span class="chapter-number">CHAPTER 02</span>
         <h2 class="chapter-title">原料 ー 米・水・麹</h2>
+        <div class="chapter-divider"></div>
       </div>
 
       <article id="ingredients-rice" class="tb-section">
-        <h3>酒造好適米</h3>
-        <p>日本酒造りに適した米を<strong>「酒造好適米」</strong>（酒米）と呼びます。食用米とは異なる特徴を持っています。</p>
-        <div class="tb-point">
-          酒造好適米に求められる条件：
-          <ul>
-            <li><strong>心白</strong>（しんぱく）が大きい ー 中心部の白い不透明な部分。麹菌が入り込みやすい</li>
-            <li><strong>タンパク質・脂肪が少ない</strong> ー 雑味の原因となる成分が少ない</li>
-            <li><strong>粒が大きい</strong> ー 高精白に耐えられる</li>
-          </ul>
+        <div class="tb-section-header" data-toggle="ingredients-rice-body">
+          <h3>酒造好適米</h3>
+          <span class="tb-section-toggle">&#x25BC;</span>
         </div>
+        <div class="tb-section-body" id="ingredients-rice-body">
+          <p>日本酒造りに適した米を<strong>「酒造好適米」</strong>（酒米）と呼びます。食用米とは異なる特徴を持っています。</p>
+          <div class="tb-point">
+            酒造好適米に求められる条件：
+            <ul>
+              <li><strong>心白</strong>（しんぱく）が大きい ー 中心部の白い不透明な部分。麹菌が入り込みやすい</li>
+              <li><strong>タンパク質・脂肪が少ない</strong> ー 雑味の原因となる成分が少ない</li>
+              <li><strong>粒が大きい</strong> ー 高精白に耐えられる</li>
+            </ul>
+          </div>
 
-        <h4>代表的な品種</h4>
-        <table class="tb-table">
-          <thead>
-            <tr><th>品種</th><th>主な産地</th><th>特徴</th></tr>
-          </thead>
-          <tbody>
-            <tr><td><strong>山田錦</strong></td><td>兵庫県（全国の約6割）</td><td>「酒米の王様」。心白が大きく高精白に向く。芳醇な酒質</td></tr>
-            <tr><td><strong>五百万石</strong></td><td>新潟県・北陸地方</td><td>すっきり淡麗な酒質。寒冷地で栽培しやすい</td></tr>
-            <tr><td><strong>美山錦</strong></td><td>長野県・東北地方</td><td>軽快で綺麗な酒質</td></tr>
-            <tr><td><strong>雄町</strong></td><td>岡山県</td><td>最古の酒米品種の一つ。ふくよかで味わい深い</td></tr>
-          </tbody>
-        </table>
+          <h4>代表的な品種</h4>
+          <div class="tb-table-wrap">
+            <table class="tb-table">
+              <thead>
+                <tr><th>品種</th><th>主な産地</th><th>特徴</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>山田錦</strong></td><td>兵庫県（全国の約6割）</td><td>「酒米の王様」。心白が大きく高精白に向く</td></tr>
+                <tr><td><strong>五百万石</strong></td><td>新潟県・北陸地方</td><td>すっきり淡麗な酒質</td></tr>
+                <tr><td><strong>美山錦</strong></td><td>長野県・東北地方</td><td>軽快で綺麗な酒質</td></tr>
+                <tr><td><strong>雄町</strong></td><td>岡山県</td><td>最古の酒米品種の一つ。ふくよかな味わい</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tb-quiz-link">
+            <a href="index.html" class="tb-quiz-chip" data-section="ingredients-rice">&#x1F3AF; この範囲のクイズに挑戦</a>
+          </div>
+        </div>
       </article>
 
       <article id="ingredients-polishing" class="tb-section">
-        <h3>精米と精米歩合</h3>
-        <p>玄米の外側にはタンパク質や脂肪が多く含まれ、これらは雑味の原因になります。そのため、酒造りでは米の外側を削り取る<strong>「精米」</strong>を行います。</p>
-        <div class="tb-point">
-          <strong>精米歩合</strong>とは、精米後に残った米の割合のこと。<br>
-          例：精米歩合60% = 外側の40%を削り、中心の60%が残った状態<br>
-          <strong>数字が小さいほど、多く削っている</strong>（＝よりコストがかかる）
+        <div class="tb-section-header" data-toggle="ingredients-polishing-body">
+          <h3>精米と精米歩合</h3>
+          <span class="tb-section-toggle">&#x25BC;</span>
         </div>
-        <table class="tb-table">
-          <thead>
-            <tr><th>特定名称</th><th>精米歩合</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>大吟醸酒・純米大吟醸酒</td><td><strong>50%以下</strong></td></tr>
-            <tr><td>吟醸酒・純米吟醸酒</td><td><strong>60%以下</strong></td></tr>
-            <tr><td>本醸造酒</td><td><strong>70%以下</strong></td></tr>
-          </tbody>
-        </table>
+        <div class="tb-section-body" id="ingredients-polishing-body">
+          <p>玄米の外側にはタンパク質や脂肪が多く含まれ、これらは雑味の原因になります。そのため、酒造りでは米の外側を削り取る<strong>「精米」</strong>を行います。</p>
+          <div class="tb-point">
+            <strong>精米歩合</strong>とは、精米後に残った米の割合のこと。<br>
+            例：精米歩合60% = 外側の40%を削り、中心の60%が残った状態<br>
+            <strong>数字が小さいほど、多く削っている</strong>（＝よりコストがかかる）
+          </div>
+          <div class="tb-table-wrap">
+            <table class="tb-table">
+              <thead>
+                <tr><th>特定名称</th><th>精米歩合</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>大吟醸酒・純米大吟醸酒</td><td><strong>50%以下</strong></td></tr>
+                <tr><td>吟醸酒・純米吟醸酒</td><td><strong>60%以下</strong></td></tr>
+                <tr><td>本醸造酒</td><td><strong>70%以下</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tb-quiz-link">
+            <a href="index.html" class="tb-quiz-chip" data-section="ingredients-polishing">&#x1F3AF; この範囲のクイズに挑戦</a>
+          </div>
+        </div>
       </article>
 
       <article id="ingredients-water" class="tb-section">
-        <h3>仕込み水</h3>
-        <p>日本酒の約80%は水でできており、水質は酒の性格を大きく左右します。</p>
-        <div class="tb-point">
-          <strong>灘の「宮水」</strong>：リン・カリウムなどのミネラルが豊富な<strong>中硬水</strong>。酵母の発酵を促進し、力強い辛口の酒（「男酒」）になる。鉄分が少ないため、酒が着色しにくい利点もある。
+        <div class="tb-section-header" data-toggle="ingredients-water-body">
+          <h3>仕込み水</h3>
+          <span class="tb-section-toggle">&#x25BC;</span>
         </div>
-        <table class="tb-table">
-          <thead>
-            <tr><th>水質</th><th>産地例</th><th>酒質の傾向</th></tr>
-          </thead>
-          <tbody>
-            <tr><td><strong>硬水</strong></td><td>灘（兵庫）</td><td>辛口で力強い「男酒」</td></tr>
-            <tr><td><strong>軟水</strong></td><td>伏見（京都）</td><td>甘口で柔らかい「女酒」</td></tr>
-          </tbody>
-        </table>
-        <p>水に含まれる<strong>鉄分</strong>は酒を着色させ品質を劣化させるため、酒造用水では鉄分が少ないことが重要です。</p>
+        <div class="tb-section-body" id="ingredients-water-body">
+          <p>日本酒の約80%は水でできており、水質は酒の性格を大きく左右します。</p>
+          <div class="tb-point">
+            <strong>灘の「宮水」</strong>：リン・カリウムなどのミネラルが豊富な<strong>中硬水</strong>。酵母の発酵を促進し、力強い辛口の酒（「男酒」）になる。鉄分が少ないため、酒が着色しにくい利点もある。
+          </div>
+          <div class="tb-table-wrap">
+            <table class="tb-table">
+              <thead>
+                <tr><th>水質</th><th>産地例</th><th>酒質の傾向</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>硬水</strong></td><td>灘（兵庫）</td><td>辛口で力強い「男酒」</td></tr>
+                <tr><td><strong>軟水</strong></td><td>伏見（京都）</td><td>甘口で柔らかい「女酒」</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>水に含まれる<strong>鉄分</strong>は酒を着色させ品質を劣化させるため、酒造用水では鉄分が少ないことが重要です。</p>
+          <div class="tb-quiz-link">
+            <a href="index.html" class="tb-quiz-chip" data-section="ingredients-water">&#x1F3AF; この範囲のクイズに挑戦</a>
+          </div>
+        </div>
       </article>
     </section>
 
     <!-- ===== 第三章：製造 ===== -->
     <section id="chapter-brewing" class="tb-chapter">
       <div class="chapter-header">
-        <span class="chapter-number">第三章</span>
+        <span class="chapter-number">CHAPTER 03</span>
         <h2 class="chapter-title">製造工程</h2>
+        <div class="chapter-divider"></div>
       </div>
 
       <article id="brewing-koji" class="tb-section">
-        <h3>麹造り（製麹）</h3>
-        <p>日本酒造りの最も重要な工程の一つが<strong>麹造り</strong>です。「一麹、二酛、三造り」と言われるほど、麹は酒質を左右します。</p>
-        <div class="tb-point">
-          <strong>糖化</strong>：麹菌（Aspergillus oryzae）が生成する酵素（アミラーゼなど）が、米のデンプンをブドウ糖に分解する工程。日本酒造りにおける最も重要な反応の一つ。
+        <div class="tb-section-header" data-toggle="brewing-koji-body">
+          <h3>麹造り（製麹）</h3>
+          <span class="tb-section-toggle">&#x25BC;</span>
         </div>
-        <p>蒸した米に麹菌の胞子を振りかけ（「種付け」）、温度と湿度を管理しながら約48時間かけて麹を造ります。この麹が後の工程で米のデンプンを糖に変えます。</p>
+        <div class="tb-section-body" id="brewing-koji-body">
+          <p>日本酒造りの最も重要な工程の一つが<strong>麹造り</strong>です。「一麹、二酛、三造り」と言われるほど、麹は酒質を左右します。</p>
+          <div class="tb-point">
+            <strong>糖化</strong>：麹菌（Aspergillus oryzae）が生成する酵素（アミラーゼなど）が、米のデンプンをブドウ糖に分解する工程。日本酒造りにおける最も重要な反応の一つ。
+          </div>
+          <p>蒸した米に麹菌の胞子を振りかけ（「種付け」）、温度と湿度を管理しながら約48時間かけて麹を造ります。この麹が後の工程で米のデンプンを糖に変えます。</p>
+          <div class="tb-quiz-link">
+            <a href="index.html" class="tb-quiz-chip" data-section="brewing-koji">&#x1F3AF; この範囲のクイズに挑戦</a>
+          </div>
+        </div>
       </article>
 
       <article id="brewing-moto" class="tb-section">
-        <h3>酒母造り（酛立て）</h3>
-        <p>酒母（もと）は、大量の酵母を培養した液体で、後の醪（もろみ）発酵の「種」となります。</p>
-        <div class="tb-point">
-          酒母の造り方は大きく3種類：
-          <ul>
-            <li><strong>速醸酛</strong>：乳酸を直接添加。約2週間で完成。全体の約90%</li>
-            <li><strong>生酛（きもと）</strong>：天然の乳酸菌を取り込む伝統製法。約4週間。「山卸し」（米をすり潰す作業）を行う</li>
-            <li><strong>山廃酛</strong>：生酛の「山卸し」を廃止した方法（「山卸し廃止酛」の略）。天然乳酸菌は利用するが、米はすり潰さない</li>
-          </ul>
+        <div class="tb-section-header" data-toggle="brewing-moto-body">
+          <h3>酒母造り（酛立て）</h3>
+          <span class="tb-section-toggle">&#x25BC;</span>
         </div>
-        <p>生酛・山廃で造った酒は、複雑で奥深い味わいが特徴です。速醸酛は安定した品質の酒を効率よく造れます。</p>
+        <div class="tb-section-body" id="brewing-moto-body">
+          <p>酒母（もと）は、大量の酵母を培養した液体で、後の醪（もろみ）発酵の「種」となります。</p>
+          <div class="tb-point">
+            酒母の造り方は大きく3種類：
+            <ul>
+              <li><strong>速醸酛</strong>：乳酸を直接添加。約2週間で完成。全体の約90%</li>
+              <li><strong>生酛（きもと）</strong>：天然の乳酸菌を取り込む伝統製法。約4週間。「山卸し」（米をすり潰す作業）を行う</li>
+              <li><strong>山廃酛</strong>：生酛の「山卸し」を廃止した方法（「山卸し廃止酛」の略）。天然乳酸菌は利用するが、米はすり潰さない</li>
+            </ul>
+          </div>
+          <p>生酛・山廃で造った酒は、複雑で奥深い味わいが特徴です。速醸酛は安定した品質の酒を効率よく造れます。</p>
+          <div class="tb-quiz-link">
+            <a href="index.html" class="tb-quiz-chip" data-section="brewing-moto">&#x1F3AF; この範囲のクイズに挑戦</a>
+          </div>
+        </div>
       </article>
 
       <article id="brewing-moromi" class="tb-section">
-        <h3>醪の仕込み ー 三段仕込み</h3>
-        <p>酒母に麹・蒸米・水を加えて醪（もろみ）を仕込みます。一度に全量を加えると酵母の濃度が薄まるため、<strong>3回に分けて仕込む「三段仕込み」</strong>が行われます。</p>
-        <div class="tb-point">
-          <strong>三段仕込みの流れ：</strong>
-          <ol>
-            <li><strong>添（そえ）</strong>＝初添：少量を加えて酵母を慣らす</li>
-            <li><strong>踊り</strong>：1日休む（酵母の増殖を待つ）</li>
-            <li><strong>仲（なか）</strong>＝仲添：添の約2倍量を追加</li>
-            <li><strong>留（とめ）</strong>＝留添：さらに倍量を追加し仕込み完了</li>
-          </ol>
+        <div class="tb-section-header" data-toggle="brewing-moromi-body">
+          <h3>醪の仕込み ー 三段仕込み</h3>
+          <span class="tb-section-toggle">&#x25BC;</span>
         </div>
-        <p>仕込み完了後、醪は約20〜30日かけて発酵します。</p>
+        <div class="tb-section-body" id="brewing-moromi-body">
+          <p>酒母に麹・蒸米・水を加えて醪（もろみ）を仕込みます。一度に全量を加えると酵母の濃度が薄まるため、<strong>3回に分けて仕込む「三段仕込み」</strong>が行われます。</p>
+          <div class="tb-point">
+            <strong>三段仕込みの流れ：</strong>
+            <ol>
+              <li><strong>添（そえ）</strong>＝初添：少量を加えて酵母を慣らす</li>
+              <li><strong>踊り</strong>：1日休む（酵母の増殖を待つ）</li>
+              <li><strong>仲（なか）</strong>＝仲添：添の約2倍量を追加</li>
+              <li><strong>留（とめ）</strong>＝留添：さらに倍量を追加し仕込み完了</li>
+            </ol>
+          </div>
+          <p>仕込み完了後、醪は約20〜30日かけて発酵します。</p>
+          <div class="tb-quiz-link">
+            <a href="index.html" class="tb-quiz-chip" data-section="brewing-moromi">&#x1F3AF; この範囲のクイズに挑戦</a>
+          </div>
+        </div>
       </article>
 
       <article id="brewing-fermentation" class="tb-section">
-        <h3>並行複発酵</h3>
-        <p>日本酒の発酵は世界の醸造酒の中でも極めてユニークです。</p>
-        <div class="tb-point">
-          <strong>並行複発酵</strong>とは、同じタンクの中で<strong>糖化（麹がデンプンを糖に変える）</strong>と<strong>アルコール発酵（酵母が糖をアルコールに変える）</strong>が同時に進行すること。
+        <div class="tb-section-header" data-toggle="brewing-fermentation-body">
+          <h3>並行複発酵</h3>
+          <span class="tb-section-toggle">&#x25BC;</span>
         </div>
-        <table class="tb-table">
-          <thead>
-            <tr><th>醸造酒</th><th>発酵形式</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>ワイン</td><td>単発酵（ブドウの糖をそのまま発酵）</td></tr>
-            <tr><td>ビール</td><td>単行複発酵（糖化→発酵を順番に行う）</td></tr>
-            <tr><td><strong>日本酒</strong></td><td><strong>並行複発酵</strong>（糖化と発酵が同時進行）</td></tr>
-          </tbody>
-        </table>
-        <p>並行複発酵により、日本酒は醸造酒としては世界最高レベルのアルコール度数（約20%）を生み出すことが可能です。</p>
+        <div class="tb-section-body" id="brewing-fermentation-body">
+          <p>日本酒の発酵は世界の醸造酒の中でも極めてユニークです。</p>
+          <div class="tb-point">
+            <strong>並行複発酵</strong>とは、同じタンクの中で<strong>糖化（麹がデンプンを糖に変える）</strong>と<strong>アルコール発酵（酵母が糖をアルコールに変える）</strong>が同時に進行すること。
+          </div>
+          <div class="tb-table-wrap">
+            <table class="tb-table">
+              <thead>
+                <tr><th>醸造酒</th><th>発酵形式</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>ワイン</td><td>単発酵（ブドウの糖をそのまま発酵）</td></tr>
+                <tr><td>ビール</td><td>単行複発酵（糖化→発酵を順番に行う）</td></tr>
+                <tr><td><strong>日本酒</strong></td><td><strong>並行複発酵</strong>（糖化と発酵が同時進行）</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>並行複発酵により、日本酒は醸造酒としては世界最高レベルのアルコール度数（約20%）を生み出すことが可能です。</p>
+          <div class="tb-quiz-link">
+            <a href="index.html" class="tb-quiz-chip" data-section="brewing-fermentation">&#x1F3AF; この範囲のクイズに挑戦</a>
+          </div>
+        </div>
       </article>
 
       <article id="brewing-pressing" class="tb-section">
-        <h3>上槽・火入れ・貯蔵</h3>
-        <h4>上槽（じょうそう）</h4>
-        <p>発酵が完了した醪を搾って、<strong>酒と酒粕に分離する工程</strong>が「上槽」です。搾り方には「槽搾り（ふなしぼり）」「ヤブタ式」「袋吊り」などがあり、方法によって酒質が変わります。</p>
-
-        <h4>火入れ</h4>
-        <div class="tb-point">
-          <strong>火入れ</strong>：約60〜65℃で加熱処理すること。<br>目的は2つ：
-          <ul>
-            <li><strong>酵素の失活</strong> ー 糖化酵素の働きを止め、味の変化を防ぐ</li>
-            <li><strong>殺菌</strong> ー 火落ち菌（乳酸菌の一種）などを殺菌し、品質を安定させる</li>
-          </ul>
-          通常、貯蔵前と出荷前の<strong>2回</strong>行われる。
+        <div class="tb-section-header" data-toggle="brewing-pressing-body">
+          <h3>上槽・火入れ・貯蔵</h3>
+          <span class="tb-section-toggle">&#x25BC;</span>
         </div>
+        <div class="tb-section-body" id="brewing-pressing-body">
+          <h4>上槽（じょうそう）</h4>
+          <p>発酵が完了した醪を搾って、<strong>酒と酒粕に分離する工程</strong>が「上槽」です。搾り方には「槽搾り（ふなしぼり）」「ヤブタ式」「袋吊り」などがあり、方法によって酒質が変わります。</p>
 
-        <h4>火入れの回数による分類</h4>
-        <table class="tb-table">
-          <thead>
-            <tr><th>名称</th><th>火入れ回数</th><th>特徴</th></tr>
-          </thead>
-          <tbody>
-            <tr><td><strong>生酒</strong></td><td>0回（一切なし）</td><td>フレッシュ。要冷蔵</td></tr>
-            <tr><td><strong>生貯蔵酒</strong></td><td>出荷前の1回のみ</td><td>生のまま貯蔵</td></tr>
-            <tr><td><strong>生詰め酒</strong></td><td>貯蔵前の1回のみ</td><td>出荷時は火入れなし（ひやおろしなど）</td></tr>
-            <tr><td>通常の酒</td><td>2回</td><td>安定した品質</td></tr>
-          </tbody>
-        </table>
+          <h4>火入れ</h4>
+          <div class="tb-point">
+            <strong>火入れ</strong>：約60〜65℃で加熱処理すること。<br>目的は2つ：
+            <ul>
+              <li><strong>酵素の失活</strong> ー 糖化酵素の働きを止め、味の変化を防ぐ</li>
+              <li><strong>殺菌</strong> ー 火落ち菌（乳酸菌の一種）などを殺菌し、品質を安定させる</li>
+            </ul>
+            通常、貯蔵前と出荷前の<strong>2回</strong>行われる。
+          </div>
+
+          <h4>火入れの回数による分類</h4>
+          <div class="tb-table-wrap">
+            <table class="tb-table">
+              <thead>
+                <tr><th>名称</th><th>火入れ回数</th><th>特徴</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>生酒</strong></td><td>0回（一切なし）</td><td>フレッシュ。要冷蔵</td></tr>
+                <tr><td><strong>生貯蔵酒</strong></td><td>出荷前の1回のみ</td><td>生のまま貯蔵</td></tr>
+                <tr><td><strong>生詰め酒</strong></td><td>貯蔵前の1回のみ</td><td>出荷時は火入れなし</td></tr>
+                <tr><td>通常の酒</td><td>2回</td><td>安定した品質</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tb-quiz-link">
+            <a href="index.html" class="tb-quiz-chip" data-section="brewing-pressing">&#x1F3AF; この範囲のクイズに挑戦</a>
+          </div>
+        </div>
       </article>
     </section>
 
     <!-- ===== 第四章：味わい・香り ===== -->
     <section id="chapter-taste" class="tb-chapter">
       <div class="chapter-header">
-        <span class="chapter-number">第四章</span>
+        <span class="chapter-number">CHAPTER 04</span>
         <h2 class="chapter-title">味わい・香り</h2>
+        <div class="chapter-divider"></div>
       </div>
 
       <article id="taste-indicators" class="tb-section">
-        <h3>日本酒度と酸度</h3>
-        <h4>日本酒度</h4>
-        <div class="tb-point">
-          日本酒の甘辛を示す指標。水と比べた比重で測定。<br>
-          <strong>プラス（+）</strong> → 糖分が少なく<strong>辛口</strong><br>
-          <strong>マイナス（−）</strong> → 糖分が多く<strong>甘口</strong>
+        <div class="tb-section-header" data-toggle="taste-indicators-body">
+          <h3>日本酒度と酸度</h3>
+          <span class="tb-section-toggle">&#x25BC;</span>
         </div>
+        <div class="tb-section-body" id="taste-indicators-body">
+          <h4>日本酒度</h4>
+          <div class="tb-point">
+            日本酒の甘辛を示す指標。水と比べた比重で測定。<br>
+            <strong>プラス（+）</strong> → 糖分が少なく<strong>辛口</strong><br>
+            <strong>マイナス（−）</strong> → 糖分が多く<strong>甘口</strong>
+          </div>
 
-        <h4>酸度</h4>
-        <p>酒に含まれる有機酸（コハク酸、リンゴ酸、乳酸など）の量を示します。</p>
-        <div class="tb-point">
-          <strong>酸度が高い</strong> → 味に締まりが出て<strong>辛く感じる</strong><br>
-          <strong>酸度が低い</strong> → <strong>甘く淡い</strong>印象<br><br>
-          同じ日本酒度でも、酸度によって味わいの印象は大きく変わります。甘辛は日本酒度だけでは判断できません。
+          <h4>酸度</h4>
+          <p>酒に含まれる有機酸（コハク酸、リンゴ酸、乳酸など）の量を示します。</p>
+          <div class="tb-point">
+            <strong>酸度が高い</strong> → 味に締まりが出て<strong>辛く感じる</strong><br>
+            <strong>酸度が低い</strong> → <strong>甘く淡い</strong>印象<br><br>
+            同じ日本酒度でも、酸度によって味わいの印象は大きく変わります。甘辛は日本酒度だけでは判断できません。
+          </div>
+          <div class="tb-quiz-link">
+            <a href="index.html" class="tb-quiz-chip" data-section="taste-indicators">&#x1F3AF; この範囲のクイズに挑戦</a>
+          </div>
         </div>
       </article>
 
       <article id="taste-aroma" class="tb-section">
-        <h3>日本酒の香り</h3>
-        <div class="tb-point">
-          <strong>吟醸香</strong>：吟醸酒に特有のフルーティーで華やかな香り。<br>
-          主な成分：
-          <ul>
-            <li><strong>カプロン酸エチル</strong> ー リンゴや洋梨のような香り</li>
-            <li><strong>酢酸イソアミル</strong> ー バナナや melon のような香り</li>
-          </ul>
-          低温でゆっくり発酵させる「吟醸造り」によって生まれる。
+        <div class="tb-section-header" data-toggle="taste-aroma-body">
+          <h3>日本酒の香り</h3>
+          <span class="tb-section-toggle">&#x25BC;</span>
         </div>
-        <p>その他の香りとして、<strong>熟成香</strong>（長期熟成で生まれるカラメルやスパイスの香り）、<strong>老ね香</strong>（ひねか：劣化による不快な香り）などがあります。</p>
+        <div class="tb-section-body" id="taste-aroma-body">
+          <div class="tb-point">
+            <strong>吟醸香</strong>：吟醸酒に特有のフルーティーで華やかな香り。<br>
+            主な成分：
+            <ul>
+              <li><strong>カプロン酸エチル</strong> ー リンゴや洋梨のような香り</li>
+              <li><strong>酢酸イソアミル</strong> ー バナナやメロンのような香り</li>
+            </ul>
+            低温でゆっくり発酵させる「吟醸造り」によって生まれる。
+          </div>
+          <p>その他の香りとして、<strong>熟成香</strong>（長期熟成で生まれるカラメルやスパイスの香り）、<strong>老ね香</strong>（ひねか：劣化による不快な香り）などがあります。</p>
+          <div class="tb-quiz-link">
+            <a href="index.html" class="tb-quiz-chip" data-section="taste-aroma">&#x1F3AF; この範囲のクイズに挑戦</a>
+          </div>
+        </div>
       </article>
 
       <article id="taste-4types" class="tb-section">
-        <h3>日本酒の4タイプ分類</h3>
-        <p>日本酒は香りと味わいの特徴から4つのタイプに分類できます。</p>
-        <table class="tb-table">
-          <thead>
-            <tr><th>タイプ</th><th>特徴</th><th>該当する酒</th><th>おすすめ温度</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>薫酒（くんしゅ）</strong></td>
-              <td>華やかな香り、軽快な味</td>
-              <td>大吟醸酒、吟醸酒</td>
-              <td>冷酒（8〜15℃）</td>
-            </tr>
-            <tr>
-              <td><strong>爽酒（そうしゅ）</strong></td>
-              <td>すっきり淡麗、軽やか</td>
-              <td>本醸造酒、生酒</td>
-              <td>冷酒（5〜10℃）</td>
-            </tr>
-            <tr>
-              <td><strong>醇酒（じゅんしゅ）</strong></td>
-              <td>米の旨味、コクがある</td>
-              <td>純米酒、生酛系</td>
-              <td>常温〜燗（15〜45℃）</td>
-            </tr>
-            <tr>
-              <td><strong>熟酒（じゅくしゅ）</strong></td>
-              <td>濃厚で複雑、黄金〜琥珀色</td>
-              <td>古酒、長期熟成酒</td>
-              <td>常温〜燗（15〜35℃）</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="tb-section-header" data-toggle="taste-4types-body">
+          <h3>日本酒の4タイプ分類</h3>
+          <span class="tb-section-toggle">&#x25BC;</span>
+        </div>
+        <div class="tb-section-body" id="taste-4types-body">
+          <p>日本酒は香りと味わいの特徴から4つのタイプに分類できます。</p>
+          <div class="tb-type-grid">
+            <div class="tb-type-card">
+              <span class="tb-type-name">薫酒</span>
+              <span class="tb-type-reading">くんしゅ</span>
+              <p>華やかな香り、軽快な味</p>
+              <span class="tb-type-example">大吟醸酒・吟醸酒</span>
+              <span class="tb-type-temp">冷酒 8〜15℃</span>
+            </div>
+            <div class="tb-type-card">
+              <span class="tb-type-name">爽酒</span>
+              <span class="tb-type-reading">そうしゅ</span>
+              <p>すっきり淡麗、軽やか</p>
+              <span class="tb-type-example">本醸造酒・生酒</span>
+              <span class="tb-type-temp">冷酒 5〜10℃</span>
+            </div>
+            <div class="tb-type-card">
+              <span class="tb-type-name">醇酒</span>
+              <span class="tb-type-reading">じゅんしゅ</span>
+              <p>米の旨味、コクがある</p>
+              <span class="tb-type-example">純米酒・生酛系</span>
+              <span class="tb-type-temp">常温〜燗 15〜45℃</span>
+            </div>
+            <div class="tb-type-card">
+              <span class="tb-type-name">熟酒</span>
+              <span class="tb-type-reading">じゅくしゅ</span>
+              <p>濃厚で複雑、黄金〜琥珀色</p>
+              <span class="tb-type-example">古酒・長期熟成酒</span>
+              <span class="tb-type-temp">常温〜燗 15〜35℃</span>
+            </div>
+          </div>
+          <div class="tb-quiz-link">
+            <a href="index.html" class="tb-quiz-chip" data-section="taste-4types">&#x1F3AF; この範囲のクイズに挑戦</a>
+          </div>
+        </div>
       </article>
     </section>
 
     <!-- ===== 第五章：分類・楽しみ方 ===== -->
     <section id="chapter-trivia" class="tb-chapter">
       <div class="chapter-header">
-        <span class="chapter-number">第五章</span>
+        <span class="chapter-number">CHAPTER 05</span>
         <h2 class="chapter-title">分類・楽しみ方</h2>
+        <div class="chapter-divider"></div>
       </div>
 
       <article id="trivia-classification" class="tb-section">
-        <h3>特定名称酒の分類</h3>
-        <p>日本酒は原料と精米歩合によって<strong>8種類の「特定名称酒」</strong>に分類されます。これに該当しないものは「普通酒」です。</p>
-        <table class="tb-table">
-          <thead>
-            <tr><th>名称</th><th>精米歩合</th><th>醸造アルコール</th><th>特徴</th></tr>
-          </thead>
-          <tbody>
-            <tr><td><strong>純米大吟醸酒</strong></td><td>50%以下</td><td>なし</td><td>最高ランク。華やかで繊細</td></tr>
-            <tr><td><strong>大吟醸酒</strong></td><td>50%以下</td><td>あり</td><td>華やかでフルーティー</td></tr>
-            <tr><td><strong>純米吟醸酒</strong></td><td>60%以下</td><td>なし</td><td>穏やかな吟醸香</td></tr>
-            <tr><td><strong>吟醸酒</strong></td><td>60%以下</td><td>あり</td><td>軽快で華やか</td></tr>
-            <tr><td><strong>特別純米酒</strong></td><td>60%以下</td><td>なし</td><td>米の旨味を活かした特別な製法</td></tr>
-            <tr><td><strong>特別本醸造酒</strong></td><td>60%以下</td><td>あり</td><td>すっきりとした特別な製法</td></tr>
-            <tr><td><strong>純米酒</strong></td><td>規定なし</td><td>なし</td><td>米の旨味が豊か</td></tr>
-            <tr><td><strong>本醸造酒</strong></td><td>70%以下</td><td>あり</td><td>すっきりと飲みやすい</td></tr>
-          </tbody>
-        </table>
-        <div class="tb-point">
-          <strong>醸造アルコール</strong>：サトウキビ等から作られた純度の高いアルコール。香りを引き出し、すっきりとした味わいにする目的で添加される。添加=悪いわけではない。
+        <div class="tb-section-header" data-toggle="trivia-classification-body">
+          <h3>特定名称酒の分類</h3>
+          <span class="tb-section-toggle">&#x25BC;</span>
+        </div>
+        <div class="tb-section-body" id="trivia-classification-body">
+          <p>日本酒は原料と精米歩合によって<strong>8種類の「特定名称酒」</strong>に分類されます。これに該当しないものは「普通酒」です。</p>
+          <div class="tb-table-wrap">
+            <table class="tb-table">
+              <thead>
+                <tr><th>名称</th><th>精米歩合</th><th>醸造アルコール</th><th>特徴</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>純米大吟醸酒</strong></td><td>50%以下</td><td>なし</td><td>最高ランク。華やかで繊細</td></tr>
+                <tr><td><strong>大吟醸酒</strong></td><td>50%以下</td><td>あり</td><td>華やかでフルーティー</td></tr>
+                <tr><td><strong>純米吟醸酒</strong></td><td>60%以下</td><td>なし</td><td>穏やかな吟醸香</td></tr>
+                <tr><td><strong>吟醸酒</strong></td><td>60%以下</td><td>あり</td><td>軽快で華やか</td></tr>
+                <tr><td><strong>特別純米酒</strong></td><td>60%以下</td><td>なし</td><td>特別な製法で米の旨味</td></tr>
+                <tr><td><strong>特別本醸造酒</strong></td><td>60%以下</td><td>あり</td><td>すっきりとした特別な製法</td></tr>
+                <tr><td><strong>純米酒</strong></td><td>規定なし</td><td>なし</td><td>米の旨味が豊か</td></tr>
+                <tr><td><strong>本醸造酒</strong></td><td>70%以下</td><td>あり</td><td>すっきりと飲みやすい</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tb-point">
+            <strong>醸造アルコール</strong>：サトウキビ等から作られた純度の高いアルコール。香りを引き出し、すっきりとした味わいにする目的で添加される。添加=悪いわけではない。
+          </div>
+          <div class="tb-quiz-link">
+            <a href="index.html" class="tb-quiz-chip" data-section="trivia-classification">&#x1F3AF; この範囲のクイズに挑戦</a>
+          </div>
         </div>
       </article>
 
       <article id="trivia-seasonal" class="tb-section">
-        <h3>季節の酒</h3>
-        <div class="tb-point">
-          <strong>ひやおろし</strong>：春に一度火入れした酒を、夏の間蔵で熟成させ、秋に出荷する酒。2回目の火入れをしない「生詰め」の状態。まろやかで落ち着いた味わいが特徴。
+        <div class="tb-section-header" data-toggle="trivia-seasonal-body">
+          <h3>季節の酒</h3>
+          <span class="tb-section-toggle">&#x25BC;</span>
         </div>
-        <p>その他の季節の酒：</p>
-        <ul class="tb-list">
-          <li><strong>新酒</strong>：その年に醸造されたばかりのフレッシュな酒（12月〜2月頃）</li>
-          <li><strong>しぼりたて</strong>：搾ったばかりの酒。荒々しくフレッシュ</li>
-          <li><strong>夏酒</strong>：夏向けの爽やかな酒。アルコール度数低めのものが多い</li>
-        </ul>
+        <div class="tb-section-body" id="trivia-seasonal-body">
+          <div class="tb-point">
+            <strong>ひやおろし</strong>：春に一度火入れした酒を、夏の間蔵で熟成させ、秋に出荷する酒。2回目の火入れをしない「生詰め」の状態。まろやかで落ち着いた味わいが特徴。
+          </div>
+          <p>その他の季節の酒：</p>
+          <ul class="tb-list">
+            <li><strong>新酒</strong>：その年に醸造されたばかりのフレッシュな酒（12月〜2月頃）</li>
+            <li><strong>しぼりたて</strong>：搾ったばかりの酒。荒々しくフレッシュ</li>
+            <li><strong>夏酒</strong>：夏向けの爽やかな酒。アルコール度数低めのものが多い</li>
+          </ul>
+          <div class="tb-quiz-link">
+            <a href="index.html" class="tb-quiz-chip" data-section="trivia-seasonal">&#x1F3AF; この範囲のクイズに挑戦</a>
+          </div>
+        </div>
       </article>
 
       <article id="trivia-serving" class="tb-section">
-        <h3>燗酒の温度帯</h3>
-        <p>日本酒は温度帯によって呼び名が変わり、味わいも大きく変化します。</p>
-        <table class="tb-table">
-          <thead>
-            <tr><th>呼び名</th><th>温度</th><th>味わいの傾向</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>雪冷え</td><td>5℃</td><td>キリッと引き締まる</td></tr>
-            <tr><td>花冷え</td><td>10℃</td><td>香りがほんのり</td></tr>
-            <tr><td>涼冷え</td><td>15℃</td><td>さらりと軽快</td></tr>
-            <tr><td>常温（冷や）</td><td>20℃</td><td>米の旨味を感じやすい</td></tr>
-            <tr><td><strong>日向燗</strong></td><td>30℃</td><td>ほんのり温かい</td></tr>
-            <tr><td><strong>人肌燗</strong></td><td>35℃</td><td>やわらかく丸い</td></tr>
-            <tr><td><strong>ぬる燗</strong></td><td>40℃</td><td>香りがふわり</td></tr>
-            <tr><td><strong>上燗</strong></td><td>45℃</td><td>味が引き締まる</td></tr>
-            <tr><td><strong>熱燗</strong></td><td>50℃</td><td>シャープでキレがある</td></tr>
-            <tr><td><strong>飛び切り燗</strong></td><td>55℃〜</td><td>辛口でドライ</td></tr>
-          </tbody>
-        </table>
+        <div class="tb-section-header" data-toggle="trivia-serving-body">
+          <h3>燗酒の温度帯</h3>
+          <span class="tb-section-toggle">&#x25BC;</span>
+        </div>
+        <div class="tb-section-body" id="trivia-serving-body">
+          <p>日本酒は温度帯によって呼び名が変わり、味わいも大きく変化します。</p>
+          <div class="tb-temp-scale">
+            <div class="tb-temp-item" style="--temp-color: #6ec6ff">
+              <span class="tb-temp-name">雪冷え</span>
+              <span class="tb-temp-deg">5℃</span>
+              <span class="tb-temp-desc">キリッと引き締まる</span>
+            </div>
+            <div class="tb-temp-item" style="--temp-color: #81d4fa">
+              <span class="tb-temp-name">花冷え</span>
+              <span class="tb-temp-deg">10℃</span>
+              <span class="tb-temp-desc">香りがほんのり</span>
+            </div>
+            <div class="tb-temp-item" style="--temp-color: #a5d6a7">
+              <span class="tb-temp-name">涼冷え</span>
+              <span class="tb-temp-deg">15℃</span>
+              <span class="tb-temp-desc">さらりと軽快</span>
+            </div>
+            <div class="tb-temp-item" style="--temp-color: #c5e1a5">
+              <span class="tb-temp-name">常温（冷や）</span>
+              <span class="tb-temp-deg">20℃</span>
+              <span class="tb-temp-desc">米の旨味を感じやすい</span>
+            </div>
+            <div class="tb-temp-item" style="--temp-color: #fff176">
+              <span class="tb-temp-name">日向燗</span>
+              <span class="tb-temp-deg">30℃</span>
+              <span class="tb-temp-desc">ほんのり温かい</span>
+            </div>
+            <div class="tb-temp-item" style="--temp-color: #ffcc80">
+              <span class="tb-temp-name">人肌燗</span>
+              <span class="tb-temp-deg">35℃</span>
+              <span class="tb-temp-desc">やわらかく丸い</span>
+            </div>
+            <div class="tb-temp-item" style="--temp-color: #ffab91">
+              <span class="tb-temp-name">ぬる燗</span>
+              <span class="tb-temp-deg">40℃</span>
+              <span class="tb-temp-desc">香りがふわり</span>
+            </div>
+            <div class="tb-temp-item" style="--temp-color: #ff8a65">
+              <span class="tb-temp-name">上燗</span>
+              <span class="tb-temp-deg">45℃</span>
+              <span class="tb-temp-desc">味が引き締まる</span>
+            </div>
+            <div class="tb-temp-item" style="--temp-color: #ef5350">
+              <span class="tb-temp-name">熱燗</span>
+              <span class="tb-temp-deg">50℃</span>
+              <span class="tb-temp-desc">シャープでキレがある</span>
+            </div>
+            <div class="tb-temp-item" style="--temp-color: #c62828">
+              <span class="tb-temp-name">飛び切り燗</span>
+              <span class="tb-temp-deg">55℃〜</span>
+              <span class="tb-temp-desc">辛口でドライ</span>
+            </div>
+          </div>
+          <div class="tb-quiz-link">
+            <a href="index.html" class="tb-quiz-chip" data-section="trivia-serving">&#x1F3AF; この範囲のクイズに挑戦</a>
+          </div>
+        </div>
       </article>
     </section>
 
-    <!-- フッター -->
+    <!-- Footer CTA -->
     <footer class="tb-footer">
-      <a href="index.html" class="btn">クイズに挑戦する</a>
+      <div class="tb-footer-cta">
+        <p class="tb-footer-msg">教科書の学習お疲れ様でした！</p>
+        <a href="index.html" class="btn btn-block">クイズに挑戦する</a>
+      </div>
     </footer>
-  </div>
+
+  </main>
+
+  <!-- Scroll-to-top -->
+  <button class="tb-scroll-top" id="scroll-top" aria-label="トップへ戻る">&#x25B2;</button>
 
   <script>
-    // URLハッシュがある場合、該当セクションにスムーズスクロール
+    // ===== Reading Progress =====
+    function updateReadingProgress() {
+      const el = document.documentElement;
+      const scrollTop = el.scrollTop || document.body.scrollTop;
+      const scrollHeight = el.scrollHeight - el.clientHeight;
+      const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      document.getElementById('reading-progress-fill').style.width = pct + '%';
+    }
+
+    // ===== Sticky Header visibility =====
+    let lastScroll = 0;
+    const stickyHeader = document.getElementById('tb-sticky-header');
+    function handleStickyHeader() {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop > 200) {
+        stickyHeader.classList.add('visible');
+      } else {
+        stickyHeader.classList.remove('visible');
+      }
+      lastScroll = scrollTop;
+    }
+
+    // ===== TOC Drawer =====
+    const tocToggle = document.getElementById('toc-toggle');
+    const tocNav = document.getElementById('toc-nav');
+    const tocOverlay = document.getElementById('toc-overlay');
+    const tocClose = document.getElementById('toc-close');
+
+    function openTOC() {
+      tocNav.classList.add('open');
+      tocOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeTOC() {
+      tocNav.classList.remove('open');
+      tocOverlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    tocToggle.addEventListener('click', openTOC);
+    tocClose.addEventListener('click', closeTOC);
+    tocOverlay.addEventListener('click', closeTOC);
+
+    // Close TOC on link click (mobile)
+    tocNav.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', () => {
+        closeTOC();
+      });
+    });
+
+    // ===== Section Toggle (Accordion) =====
+    document.querySelectorAll('.tb-section-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const targetId = header.getAttribute('data-toggle');
+        const body = document.getElementById(targetId);
+        const section = header.closest('.tb-section');
+        const toggle = header.querySelector('.tb-section-toggle');
+
+        if (section.classList.contains('collapsed')) {
+          section.classList.remove('collapsed');
+          body.style.maxHeight = body.scrollHeight + 'px';
+          setTimeout(() => { body.style.maxHeight = 'none'; }, 350);
+        } else {
+          body.style.maxHeight = body.scrollHeight + 'px';
+          body.offsetHeight; // reflow
+          section.classList.add('collapsed');
+          body.style.maxHeight = '0';
+        }
+      });
+    });
+
+    // ===== Active Section Tracking =====
+    const sectionLabel = document.getElementById('current-section-label');
+    const tocLinks = document.querySelectorAll('.tb-toc-nav a[data-section]');
+    const sections = document.querySelectorAll('.tb-section');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          const h3 = entry.target.querySelector('h3');
+          if (h3) {
+            sectionLabel.textContent = h3.textContent;
+          }
+          // Update TOC active
+          tocLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('data-section') === id);
+          });
+        }
+      });
+    }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+
+    sections.forEach(section => observer.observe(section));
+
+    // ===== Scroll-to-top Button =====
+    const scrollTopBtn = document.getElementById('scroll-top');
+    function updateScrollTopBtn() {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      scrollTopBtn.classList.toggle('visible', scrollTop > 600);
+    }
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ===== Scroll Events =====
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateReadingProgress();
+          handleStickyHeader();
+          updateScrollTopBtn();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    // ===== Hash-based scroll & highlight =====
     if (window.location.hash) {
       setTimeout(() => {
         const el = document.querySelector(window.location.hash);
         if (el) {
-          el.scrollIntoView({ behavior: "smooth", block: "start" });
-          el.classList.add("highlight");
-          setTimeout(() => el.classList.remove("highlight"), 2000);
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          el.classList.add('highlight');
+          setTimeout(() => el.classList.remove('highlight'), 2500);
         }
-      }, 300);
+      }, 400);
     }
+
+    // ===== Smooth scroll for anchor links =====
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          history.replaceState(null, '', a.getAttribute('href'));
+        }
+      });
+    });
   </script>
 </body>
 </html>

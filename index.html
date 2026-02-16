@@ -3,88 +3,131 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>日本酒検定2級 クイズ</title>
+  <title>SAKE KENTEI - 日本酒検定2級</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- 背景 -->
   <div class="bg-photo"></div>
   <div class="bg-overlay"></div>
 
   <div class="container">
-    <!-- スタート画面 -->
-    <div id="start-screen" class="screen">
-      <div class="hero">
-        <div class="label-frame">
-          <div class="label-inner">
-            <span class="label-top">日本酒検定</span>
-            <span class="label-grade">弐級</span>
-            <span class="label-sub">NIHONSHU KENTEI</span>
+    <!-- ===== ホーム / ダッシュボード ===== -->
+    <div id="home-screen" class="screen active">
+      <header class="home-header">
+        <div class="brand">
+          <span class="brand-kanji">酒</span>
+          <div class="brand-text">
+            <span class="brand-name">SAKE KENTEI</span>
+            <span class="brand-sub">日本酒検定 弐級</span>
           </div>
         </div>
-        <p class="hero-tagline">酒を知り、酒を愉しむ</p>
+      </header>
+
+      <!-- 進捗サマリー -->
+      <div class="stats-row" id="stats-row">
+        <div class="stat-card">
+          <span class="stat-value" id="stat-total">0</span>
+          <span class="stat-label">挑戦回数</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" id="stat-best">-%</span>
+          <span class="stat-label">最高スコア</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" id="stat-mastered">0</span>
+          <span class="stat-label">習得済み</span>
+        </div>
       </div>
 
+      <!-- メインアクション -->
       <nav class="main-nav">
-        <a href="#" id="start-quiz-btn" class="nav-card">
-          <span class="nav-icon">&#x1F3AF;</span>
-          <div class="nav-text">
-            <span class="nav-title">クイズに挑戦</span>
-            <span class="nav-desc">4択問題で実力を試す</span>
+        <button class="nav-card nav-primary" id="start-quiz-btn">
+          <div class="nav-card-icon">&#x1F3AF;</div>
+          <div class="nav-card-body">
+            <span class="nav-card-title">クイズに挑戦</span>
+            <span class="nav-card-desc">4択問題で実力を試す</span>
           </div>
-        </a>
+          <span class="nav-card-arrow">&rsaquo;</span>
+        </button>
         <a href="textbook.html" class="nav-card">
-          <span class="nav-icon">&#x1F4D6;</span>
-          <div class="nav-text">
-            <span class="nav-title">教科書で学ぶ</span>
-            <span class="nav-desc">体系的に知識を身につける</span>
+          <div class="nav-card-icon">&#x1F4D6;</div>
+          <div class="nav-card-body">
+            <span class="nav-card-title">教科書で学ぶ</span>
+            <span class="nav-card-desc">体系的に知識を身につける</span>
           </div>
+          <span class="nav-card-arrow">&rsaquo;</span>
         </a>
       </nav>
+
+      <!-- カテゴリ別進捗 -->
+      <section class="category-progress" id="category-progress">
+        <h3 class="section-title">カテゴリ別マスター率</h3>
+        <div id="category-bars"></div>
+      </section>
     </div>
 
-    <!-- カテゴリ選択画面 -->
-    <div id="category-screen" class="screen hidden">
-      <div class="screen-header">
-        <button id="back-to-home" class="back-btn">&larr; 戻る</button>
-        <h2 class="screen-title">カテゴリ選択</h2>
+    <!-- ===== カテゴリ選択 ===== -->
+    <div id="category-screen" class="screen">
+      <div class="screen-top-bar">
+        <button class="icon-btn" id="back-to-home">&larr;</button>
+        <h2 class="screen-heading">カテゴリ選択</h2>
       </div>
-      <div id="category-buttons" class="category-buttons"></div>
+      <div id="category-buttons" class="category-list"></div>
     </div>
 
-    <!-- クイズ画面 -->
-    <div id="quiz-screen" class="screen hidden">
-      <div class="quiz-header">
-        <span id="category-label" class="category-label"></span>
-        <span id="progress"></span>
+    <!-- ===== クイズ ===== -->
+    <div id="quiz-screen" class="screen">
+      <div class="quiz-top">
+        <button class="icon-btn" id="quiz-back">&times;</button>
+        <span id="category-label" class="pill"></span>
+        <span id="progress" class="progress-text"></span>
       </div>
-      <div class="progress-bar-track">
-        <div id="progress-bar" class="progress-bar-fill"></div>
-      </div>
-      <div id="question-box" class="question-box">
+      <div class="progress-track"><div id="progress-bar" class="progress-fill"></div></div>
+
+      <div id="question-card" class="question-card">
         <p id="question-text"></p>
       </div>
+
       <div id="choices" class="choices"></div>
+
       <div id="explanation-box" class="explanation-box hidden">
+        <div class="explanation-header">
+          <span id="answer-icon" class="answer-icon"></span>
+          <span id="answer-label" class="answer-label"></span>
+        </div>
         <p id="explanation-text"></p>
-        <a id="textbook-link" href="#" class="textbook-link" target="_blank">&#x1F4D6; この分野を教科書で学ぶ</a>
-        <button id="next-btn" class="btn next-btn">次の問題へ</button>
+        <a id="textbook-link" href="#" class="textbook-chip" target="_blank">&#x1F4D6; 教科書で詳しく</a>
+        <button id="next-btn" class="btn btn-block">次の問題へ</button>
       </div>
     </div>
 
-    <!-- 結果画面 -->
-    <div id="result-screen" class="screen hidden">
-      <div class="result-label-frame">
-        <span class="result-label-top">成績発表</span>
-        <div id="score-display" class="score-display">
-          <span id="score-text" class="score-number"></span>
+    <!-- ===== 結果 ===== -->
+    <div id="result-screen" class="screen">
+      <div class="result-hero">
+        <div class="result-score-ring" id="score-ring">
+          <svg viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="54" class="ring-bg"/>
+            <circle cx="60" cy="60" r="54" class="ring-fill" id="ring-fill"/>
+          </svg>
+          <span class="result-pct" id="score-text"></span>
         </div>
-        <p id="result-detail"></p>
+        <p class="result-msg" id="result-message"></p>
+        <p class="result-detail" id="result-detail"></p>
       </div>
-      <p id="result-message"></p>
-      <div class="result-buttons">
-        <button id="retry-btn" class="btn">もう一度挑戦</button>
-        <button id="home-btn" class="btn btn-outline">トップに戻る</button>
+
+      <!-- カテゴリ内訳 -->
+      <div class="result-breakdown" id="result-breakdown"></div>
+
+      <!-- 間違えた問題 -->
+      <div class="result-wrong-section hidden" id="wrong-section">
+        <h3 class="section-title">間違えた問題</h3>
+        <div id="wrong-list"></div>
+      </div>
+
+      <div class="result-actions">
+        <button id="review-btn" class="btn btn-block hidden">間違えた問題だけ復習</button>
+        <button id="retry-btn" class="btn btn-block">もう一度挑戦</button>
+        <button id="home-btn" class="btn btn-block btn-ghost">ホームに戻る</button>
       </div>
     </div>
   </div>
